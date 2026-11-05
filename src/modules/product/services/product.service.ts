@@ -83,11 +83,12 @@ export class ProductService {
     quantity: number,
     session: any,
   ): Promise<void> {
-    this.productModel.updateOne(
+    await this.productModel.updateOne(
       { _id: productId },
       { $inc: { stock: -quantity } },
       { session },
     );
+    await clearCacheKeys(this.cacheManager);
   }
 
   public async remove(id: string): Promise<void> {

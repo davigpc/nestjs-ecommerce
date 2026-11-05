@@ -6,7 +6,7 @@ import {
   StripeEvent,
   StripeEventDocument,
 } from '@stripe/schemas/stripe-event.schema';
-import Stripe from 'stripe';
+import { LocalStripeEvent } from '@stripe/interfaces/stripe-event.interface';
 import { UserService } from '@user/services/user.service';
 import { OrderStatus } from '@order/enums/order-status.enum';
 
@@ -41,12 +41,12 @@ export class StripeWebhookService {
     return stripeEvent;
   }
 
-  public async processSubscriptionUpdate(event: Stripe.Event) {
+  public async processSubscriptionUpdate(event: LocalStripeEvent) {
     this.logger.log(`Processing subscription update for event ID: ${event.id}`);
     await this.createStripeEvent(event.id);
 
-    const data = event.data.object as Stripe.Subscription;
-    const customerId: string = data.customer as string;
+    const data = event.data.object as { customer: string; status: string };
+    const customerId: string = data.customer;
     const subscriptionStatus = data.status;
 
     this.logger.log(
@@ -69,11 +69,13 @@ export class StripeWebhookService {
     }
   }
 
-  public async processPaymentSucceeded(event: Stripe.Event) {
+  public async processPaymentSucceeded(event: LocalStripeEvent) {
     this.logger.log(`Processing payment succeeded for event ID: ${event.id}`);
     await this.createStripeEvent(event.id);
 
-    const data = event.data.object as Stripe.PaymentIntent;
+    const data = event.data.object as {
+      metadata: { order_id: string };
+    };
     const orderId = data.metadata.order_id;
 
     this.logger.log(

@@ -34,7 +34,7 @@ import {
   Pagination,
   PaginationParams,
 } from '@shared/decorators/pagination.decorator';
-import { AwsStorageService } from '@storages/services/aws-storage.service';
+import { LocalStorageService } from '@storages/services/local-storage.service';
 
 @ApiTags('Rentings')
 @Controller('renting')
@@ -44,7 +44,7 @@ export class RentingController {
 
   public constructor(
     private readonly rentingService: RentingService,
-    private readonly awsStorage: AwsStorageService,
+    private readonly localStorage: LocalStorageService,
   ) {}
 
   @Post()
@@ -55,7 +55,7 @@ export class RentingController {
     @UploadedFiles() images: Array<Express.Multer.File>,
     @Body() rent: CreateRentingDto,
   ) {
-    const imageUrls = await this.awsStorage.uploadMultipleFiles(images);
+    const imageUrls = await this.localStorage.uploadMultipleFiles(images);
     const rentWithImages = { ...rent, images: imageUrls };
     return this.rentingService.create(rentWithImages);
   }

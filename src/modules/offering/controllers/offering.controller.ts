@@ -34,7 +34,7 @@ import {
   Pagination,
   PaginationParams,
 } from '@shared/decorators/pagination.decorator';
-import { AwsStorageService } from '@storages/services/aws-storage.service';
+import { LocalStorageService } from '@storages/services/local-storage.service';
 
 @ApiTags('Proffesional Services')
 @Controller('offerings')
@@ -42,7 +42,7 @@ import { AwsStorageService } from '@storages/services/aws-storage.service';
 export class OfferingController {
   public constructor(
     private readonly offeringService: OfferingService,
-    private readonly awsStorage: AwsStorageService,
+    private readonly localStorage: LocalStorageService,
   ) {}
 
   @Post()
@@ -58,7 +58,7 @@ export class OfferingController {
     @UploadedFiles() images: Array<Express.Multer.File>,
     @Body() offering: CreateOfferingDto,
   ): Promise<Offering> {
-    const imageUrls = await this.awsStorage.uploadMultipleFiles(images);
+    const imageUrls = await this.localStorage.uploadMultipleFiles(images);
     const offeringWithImages = { ...offering, images: imageUrls };
     return this.offeringService.createOffering(offeringWithImages);
   }

@@ -44,6 +44,9 @@ lerna-debug.log*
 .env.production.local
 .env.local
 
+# uploads locais (substituem o AWS S3)
+/uploads
+
 # temp directory
 .temp
 .tmp

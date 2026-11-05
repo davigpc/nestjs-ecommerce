@@ -25,7 +25,7 @@ import { CreateProductDto } from '@product/dto/create-product.dto';
 import { UpdateProductDto } from '@product/dto/update-product.dto';
 import { Product } from '@product/schemas/product.schema';
 import { ProductService } from '@product/services/product.service';
-import { AwsStorageService } from '@storages/services/aws-storage.service';
+import { LocalStorageService } from '@storages/services/local-storage.service';
 import { PaginatedResourceDto } from '@search/dto/paginated-resource.dto';
 import {
   Pagination,
@@ -44,7 +44,7 @@ export class ProductController {
 
   public constructor(
     private readonly productService: ProductService,
-    private readonly awsStorage: AwsStorageService,
+    private readonly localStorage: LocalStorageService,
   ) {}
 
   @Post()
@@ -55,7 +55,7 @@ export class ProductController {
     @UploadedFiles() images: Array<Express.Multer.File>,
     @Body() product: CreateProductDto,
   ): Promise<Product> {
-    const imageUrls = await this.awsStorage.uploadMultipleFiles(images);
+    const imageUrls = await this.localStorage.uploadMultipleFiles(images);
     const productWithImages = { ...product, images: imageUrls };
     return this.productService.createProduct(productWithImages);
   }

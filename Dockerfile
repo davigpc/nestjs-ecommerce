@@ -51,13 +51,17 @@ USER node
 ###################
 FROM node:22-slim AS production
 
+WORKDIR /usr/src/app
+
 # Copy the bundled code from the build stage to the production image
 COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=build /usr/src/app/dist ./dist
-COPY --chown=node:node --from=build /usr/src/app/ecosystem.config.js ./ecosystem.config.js
+COPY --chown=node:node --from=build /usr/src/app/scripts ./scripts
 
 # Set NODE_ENV environment variable
 ENV NODE_ENV production
 
-# Start the server using the production build
-CMD [ "npx", "pm2-runtime", "ecosystem.config.js" ]
+EXPOSE 3001
+
+# Start the server using the production build (one process, no PM2 cluster)
+CMD [ "node", "dist/main.js" ]

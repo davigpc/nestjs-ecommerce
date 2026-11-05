@@ -15,13 +15,13 @@ import { UpdateUserDto } from '@user/dto/update-user.dto';
 import { UserService } from '@user/services/user.service';
 import { CreateAddressDto } from '@address/dto/create-address.dto';
 import { UpdateAddressDto } from '@address/dto/update-address.dto';
-import { AwsStorageService } from '@storages/services/aws-storage.service';
+import { LocalStorageService } from '@storages/services/local-storage.service';
 
 @ApiTags('Profile')
 @Controller('profile')
 export class ProfileController {
   public constructor(
-    private readonly awsStorage: AwsStorageService,
+    private readonly localStorage: LocalStorageService,
     private readonly userService: UserService,
   ) {}
 
@@ -34,7 +34,7 @@ export class ProfileController {
     @UploadedFile() file: Express.Multer.File,
     @Param('id') id: string,
   ) {
-    const image = await this.awsStorage.uploadSingleFile(file);
+    const image = await this.localStorage.uploadSingleFile(file);
     return this.userService.updateProfilePicture(id, image);
   }
 

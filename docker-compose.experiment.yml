@@ -1,0 +1,54 @@
+name: ecommerce
+
+services:
+  api:
+    build:
+      context: .
+      target: production
+    container_name: ecommerce_api
+    restart: unless-stopped
+    env_file:
+      - .production.env
+    ports:
+      - "3001:3001"
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - ecommerce
+
+  mongo:
+    image: mongo:7
+    container_name: ecommerce_mongo
+    restart: unless-stopped
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all", "--quiet"]
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet --eval \"try { rs.status().ok } catch (e) { rs.initiate({_id:'rs0',members:[{_id:0,host:'mongo:27017'}]}).ok }\" | grep -q 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 5s
+    networks:
+      - ecommerce
+
+  redis:
+    image: redis:7-alpine
+    container_name: ecommerce_redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    networks:
+      - ecommerce
+
+volumes:
+  mongo_data:
+
+networks:
+  ecommerce:
+    driver: bridge

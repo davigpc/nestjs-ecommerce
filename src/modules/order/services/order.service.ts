@@ -71,7 +71,13 @@ export class OrderService {
       await this.updateInventory(order.items, session);
       await session.commitTransaction();
       this.logger.log(`Order with ID ${orderId} processed successfully`);
-      await this.emailService.sendOrderConfirmationEmail(order);
+      await this.emailService.sendOrderConfirmationEmail({
+        email: order.billing_details?.email,
+        name: order.billing_details?.name,
+        orderId: orderId,
+        items: order.items,
+        total: order.amount,
+      });
     } catch (error) {
       await session.abortTransaction();
       this.logger.error(

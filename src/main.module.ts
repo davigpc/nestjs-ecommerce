@@ -7,16 +7,11 @@ import { UserModule } from '@user/user.module';
 import { AuthModule } from '@auth/auth.module';
 import { TokenModule } from '@token/token.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ReviewModule } from '@review/review.module';
 import { EmailModule } from '@email/email.module';
 import { ProductModule } from '@product/product.module';
-import { OfferingModule } from '@offering/offering.module';
 import { CartModule } from '@cart/cart.module';
-import { ChatModule } from '@chat/chat.module';
 import { StripeModule } from '@stripe/stripe.module';
-import { ItemModule } from '@item/item.module';
 import { CacheModule } from '@nestjs/cache-manager';
-import { WishlistModule } from '@wishlist/wishlist.module';
 import { AddressModule } from '@address/address.module';
 import { OrderModule } from '@order/order.module';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -54,15 +49,10 @@ import { ThrottlerModule } from '@nestjs/throttler';
     AddressModule,
     AuthModule,
     TokenModule,
-    OfferingModule,
     ProductModule,
     CartModule,
-    ReviewModule,
     EmailModule,
-    ChatModule,
     StripeModule,
-    ItemModule,
-    WishlistModule,
     OrderModule,
   ],
 })

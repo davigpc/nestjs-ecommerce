@@ -34,11 +34,11 @@ export class ProductService {
   }
 
   public async getProductById(id: string): Promise<Product> {
-    const offering = await this.productModel.findById(id).lean();
-    if (!offering) {
+    const product = await this.productModel.findById(id).lean();
+    if (!product) {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
-    return offering;
+    return product;
   }
 
   public async getProductByFilters(

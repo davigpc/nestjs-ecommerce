@@ -71,8 +71,6 @@ OrderSchema.pre<OrderDocument>('save', async function (next) {
   const userModel = this.model('User');
   const models = {
     [ItemTypes.PRODUCT]: this.model('Product'),
-    [ItemTypes.OFFERING]: this.model('Offering'),
-    [ItemTypes.RENTING]: this.model('Renting'),
   };
 
   try {

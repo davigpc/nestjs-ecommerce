@@ -88,9 +88,33 @@ async function resetDatabase() {
   await mongoose.disconnect();
 }
 
+async function flushCache() {
+  if (!process.env.REDIS_HOST) return;
+  try {
+    const redis = require('redis');
+    const client = redis.createClient({
+      host: process.env.REDIS_HOST,
+      port: Number(process.env.REDIS_PORT || 6379),
+    });
+    if (typeof client.connect === 'function') {
+      await client.connect();
+      await client.flushAll();
+      await client.disconnect();
+    } else {
+      await new Promise((resolve, reject) => {
+        client.flushall((error) => (error ? reject(error) : resolve(undefined)));
+      });
+      client.quit();
+    }
+  } catch (error) {
+    console.warn(`cache flush failed: ${error.message}`);
+  }
+}
+
 async function main() {
   await waitForApi();
   await resetDatabase();
+  await flushCache();
 
   let session;
   try {
@@ -130,19 +154,6 @@ async function main() {
     );
   }
 
-  const offering = await postForm(
-    '/api/offerings',
-    {
-      seller: userId,
-      name: 'Seed Offering',
-      description: 'Serviço de seed',
-      category: 'seed',
-      subcategory: 'seed',
-      attributes: JSON.stringify([{ key: 'mode', value: 'remote' }]),
-    },
-    token,
-  );
-
   const order = await postJson(
     '/api/orders',
     {
@@ -169,7 +180,6 @@ async function main() {
       userId,
       productId: products[0]._id,
       productIds: products.map((product) => product._id),
-      offeringId: offering._id,
       orderClientSecret: order.client_secret,
     }),
   );

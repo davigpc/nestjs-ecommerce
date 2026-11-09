@@ -7,7 +7,7 @@ import {
   StripeEventDocument,
 } from '@stripe/schemas/stripe-event.schema';
 import { LocalStripeEvent } from '@stripe/interfaces/stripe-event.interface';
-import { UserService } from '@user/services/user.service';
+import { ClientesClient } from '@stripe/services/clientes.client';
 import { OrderStatus } from '@order/enums/order-status.enum';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class StripeWebhookService {
   public constructor(
     @InjectModel(StripeEvent.name)
     private readonly eventModel: Model<StripeEventDocument>,
-    private readonly userService: UserService,
+    private readonly clientesClient: ClientesClient,
     private readonly orderService: OrderService,
   ) {}
 
@@ -53,7 +53,7 @@ export class StripeWebhookService {
       `Updating subscription status for customer ID: ${customerId} to ${subscriptionStatus}`,
     );
     try {
-      await this.userService.updateMonthlySubscriptionStatus(
+      await this.clientesClient.updateSubscriptionStatus(
         customerId,
         subscriptionStatus,
       );

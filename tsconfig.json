@@ -19,35 +19,8 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@auth/*": [
-        "src/modules/auth/*"
-      ],
-      "@token/*": [
-        "src/modules/token/*"
-      ],
-      "@user/*": [
-        "src/modules/user/*"
-      ],
-      "@product/*": [
-        "src/modules/product/*"
-      ],
-      "@review/*": [
-        "src/modules/review/*"
-      ],
-      "@category/*": [
-        "src/modules/category/*"
-      ],
-      "@search/*": [
-        "src/modules/search/*"
-      ],
       "@email/*": [
         "src/modules/email/*"
-      ],
-      "@offering/*": [
-        "src/modules/offering/*"
-      ],
-      "@renting/*": [
-        "src/modules/renting/*"
       ],
       "@cart/*": [
         "src/modules/cart/*"
@@ -55,35 +28,17 @@
       "@item/*": [
         "src/modules/item/*"
       ],
-      "@chat/*": [
-        "src/modules/chat/*"
-      ],
       "@order/*": [
         "src/modules/order/*"
       ],
       "@stripe/*": [
         "src/modules/stripe/*"
       ],
-      "@address/*": [
-        "src/modules/address/*"
-      ],
-      "@subscription/*": [
-        "src/modules/subscription/*"
-      ],
-      "@wishlist/*": [
-        "src/modules/wishlist/*"
-      ],
-      "@storages/*": [
-        "src/modules/storages/*"
-      ],
       "@shipping/*": [
         "src/modules/shipping/*"
       ],
       "@inventory/*": [
         "src/modules/inventory/*"
-      ],
-      "@verification/*": [
-        "src/modules/verification/*"
       ],
       "@shared/*": [
         "src/shared/*"
@@ -94,9 +49,6 @@
       "@common/*": [
         "src/common/*"
       ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
       "@health/*": [
         "src/modules/health/*"
       ]
@@ -104,3 +56,5 @@
   }
 
 }
+
+

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ItemTypes } from '@item/enums/item-types.enum';
 import { ProductReferenceSchema } from '@item/schemas/product-reference.schema';
+import { UserReferenceSchema } from '@shared/schemas/user-reference.schema';
 import { Cart, CartSchema } from './schemas/cart.schema';
 import { CartService } from './services/cart.service';
 import { CartController } from './controllers/cart.controller';
@@ -11,6 +12,7 @@ import { CartController } from './controllers/cart.controller';
     MongooseModule.forFeature([
       { name: Cart.name, schema: CartSchema },
       { name: ItemTypes.PRODUCT, schema: ProductReferenceSchema },
+      { name: 'User', schema: UserReferenceSchema },
     ]),
   ],
   controllers: [CartController],

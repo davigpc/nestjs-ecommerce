@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { OrderController } from './order.controller';
 import { OrderService } from '@order/services/order.service';
 import { CreateOrderDto } from '@order/dto/create-order.dto';
-import { JwtAuthenticationGuard } from '@shared/guards/jwt.auth.guard';
+import { AccessTokenGuard } from '@shared/guards/access-token.guard';
 import { ItemTypes } from '@item/enums/item-types.enum';
 
 describe('OrderController', () => {
@@ -22,7 +22,7 @@ describe('OrderController', () => {
         },
       ],
     })
-      .overrideGuard(JwtAuthenticationGuard)
+      .overrideGuard(AccessTokenGuard)
       .useValue({
         canActivate: (context: ExecutionContext) => {
           const request = context.switchToHttp().getRequest();

@@ -7,16 +7,18 @@ import { OrderController } from './controllers/order.controller';
 import { Order, OrderSchema } from './schemas/order.schema';
 import { ItemTypes } from '@item/enums/item-types.enum';
 import { ProductReferenceSchema } from '@item/schemas/product-reference.schema';
+import { UserReferenceSchema } from '@shared/schemas/user-reference.schema';
+import { AccessTokenModule } from '@shared/guards/access-token.module';
 import { StripePaymentService } from '@stripe/services/stripe-payment.service';
-import { TokenModule } from '@token/token.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Order.name, schema: OrderSchema },
       { name: ItemTypes.PRODUCT, schema: ProductReferenceSchema },
+      { name: 'User', schema: UserReferenceSchema },
     ]),
-    TokenModule,
+    AccessTokenModule,
   ],
   controllers: [OrderController],
   providers: [

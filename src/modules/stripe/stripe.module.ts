@@ -1,23 +1,22 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TokenModule } from '@token/token.module';
-import { UserModule } from '@user/user.module';
 import { OrderModule } from '@order/order.module';
+import { AccessTokenModule } from '@shared/guards/access-token.module';
 import { StripePaymentController } from './controllers/stripe-payment.controller';
 import { StripeSubscriptionController } from './controllers/stripe-subscription.controller';
 import { StripeWebhookController } from './controllers/stripe-webhook.controller';
 import { StripePaymentService } from './services/stripe-payment.service';
 import { StripeSubscriptionService } from './services/stripe-subscription.service';
 import { StripeWebhookService } from './services/stripe-webhook.service';
+import { ClientesClient } from './services/clientes.client';
 import { StripeEvent, StripeEventSchema } from './schemas/stripe-event.schema';
 
 @Module({
   imports: [
-    TokenModule,
+    AccessTokenModule,
     MongooseModule.forFeature([
       { name: StripeEvent.name, schema: StripeEventSchema },
     ]),
-    UserModule,
     OrderModule,
   ],
   controllers: [
@@ -29,6 +28,7 @@ import { StripeEvent, StripeEventSchema } from './schemas/stripe-event.schema';
     StripePaymentService,
     StripeSubscriptionService,
     StripeWebhookService,
+    ClientesClient,
   ],
 })
 export class StripeModule {}

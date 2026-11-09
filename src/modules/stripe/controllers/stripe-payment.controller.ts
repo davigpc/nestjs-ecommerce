@@ -14,13 +14,13 @@ import {
   ApiBody,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { JwtAuthenticationGuard } from '@shared/guards/jwt.auth.guard';
+import { AccessTokenGuard } from '@shared/guards/access-token.guard';
 import { PaymentIntentDto } from '@stripe/dto/payment-intent.dto';
 import { StripePaymentService } from '@stripe/services/stripe-payment.service';
 
 @ApiTags('Stripe')
 @ApiBearerAuth()
-@UseGuards(JwtAuthenticationGuard)
+@UseGuards(AccessTokenGuard)
 @Controller('stripe')
 export class StripePaymentController {
   private readonly logger = new Logger(StripePaymentController.name);

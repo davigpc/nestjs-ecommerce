@@ -3,15 +3,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import mongoConfig from '@config/mongo.config';
 import redisStore from 'cache-manager-redis-store';
 import { HealthModule } from '@health/health.module';
-import { UserModule } from '@user/user.module';
-import { AuthModule } from '@auth/auth.module';
-import { TokenModule } from '@token/token.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EmailModule } from '@email/email.module';
 import { CartModule } from '@cart/cart.module';
 import { StripeModule } from '@stripe/stripe.module';
 import { CacheModule } from '@nestjs/cache-manager';
-import { AddressModule } from '@address/address.module';
 import { OrderModule } from '@order/order.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 
@@ -44,10 +40,6 @@ import { ThrottlerModule } from '@nestjs/throttler';
       },
     ]),
     HealthModule,
-    UserModule,
-    AddressModule,
-    AuthModule,
-    TokenModule,
     CartModule,
     EmailModule,
     StripeModule,

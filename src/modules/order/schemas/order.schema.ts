@@ -1,7 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { User } from '@user/schemas/user.schema';
 import { OrderStatus } from '@order/enums/order-status.enum';
 import { Item, ItemSchema } from '@item/schemas/item.schema';
 import { PaymentMethod } from '@order/enums/payment-method';
@@ -16,10 +15,10 @@ export type OrderDocument = Order & mongoose.Document;
 export class Order {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: User.name,
+    ref: 'User',
     required: true,
   })
-  customer: User;
+  customer: string;
 
   @Prop({ type: [ItemSchema], required: true })
   items: Item[];
@@ -45,7 +44,7 @@ export class Order {
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
 
-async function validateUser(user: User, userModel: any) {
+async function validateUser(user: string, userModel: any) {
   const userExists = await userModel.exists({ _id: user });
   if (!userExists) {
     throw new NotFoundException(`User with ID ${user} not found`);

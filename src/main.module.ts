@@ -8,7 +8,6 @@ import { AuthModule } from '@auth/auth.module';
 import { TokenModule } from '@token/token.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EmailModule } from '@email/email.module';
-import { ProductModule } from '@product/product.module';
 import { CartModule } from '@cart/cart.module';
 import { StripeModule } from '@stripe/stripe.module';
 import { CacheModule } from '@nestjs/cache-manager';
@@ -49,7 +48,6 @@ import { ThrottlerModule } from '@nestjs/throttler';
     AddressModule,
     AuthModule,
     TokenModule,
-    ProductModule,
     CartModule,
     EmailModule,
     StripeModule,

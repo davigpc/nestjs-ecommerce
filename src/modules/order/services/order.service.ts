@@ -68,7 +68,7 @@ export class OrderService {
     session.startTransaction();
     try {
       const order = await this.updateOrder(orderId, { status }, session);
-      await this.updateInventory(order.items, session);
+      await this.updateInventory(order.items);
       await session.commitTransaction();
       this.logger.log(`Order with ID ${orderId} processed successfully`);
       await this.emailService.sendOrderConfirmationEmail({
@@ -118,11 +118,8 @@ export class OrderService {
     return order;
   }
 
-  private async updateInventory(
-    items: any[],
-    session: ClientSession,
-  ): Promise<void> {
+  private async updateInventory(items: any[]): Promise<void> {
     this.logger.log(`Updating inventory for items`);
-    await this.inventoryService.updateInventory(items, session);
+    await this.inventoryService.updateInventory(items);
   }
 }

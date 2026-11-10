@@ -19,15 +19,6 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@auth/*": [
-        "src/modules/auth/*"
-      ],
-      "@token/*": [
-        "src/modules/token/*"
-      ],
-      "@user/*": [
-        "src/modules/user/*"
-      ],
       "@product/*": [
         "src/modules/product/*"
       ],
@@ -39,9 +30,6 @@
       ],
       "@search/*": [
         "src/modules/search/*"
-      ],
-      "@email/*": [
-        "src/modules/email/*"
       ],
       "@offering/*": [
         "src/modules/offering/*"
@@ -63,9 +51,6 @@
       ],
       "@stripe/*": [
         "src/modules/stripe/*"
-      ],
-      "@address/*": [
-        "src/modules/address/*"
       ],
       "@subscription/*": [
         "src/modules/subscription/*"
@@ -102,5 +87,4 @@
       ]
     }
   }
-
 }

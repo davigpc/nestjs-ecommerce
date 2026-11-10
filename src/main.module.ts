@@ -3,19 +3,21 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import mongoConfig from '@config/mongo.config';
 import redisStore from 'cache-manager-redis-store';
 import { HealthModule } from '@health/health.module';
-import { UserModule } from '@user/user.module';
-import { AuthModule } from '@auth/auth.module';
-import { TokenModule } from '@token/token.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { EmailModule } from '@email/email.module';
 import { ProductModule } from '@product/product.module';
 import { CartModule } from '@cart/cart.module';
 import { StripeModule } from '@stripe/stripe.module';
 import { CacheModule } from '@nestjs/cache-manager';
-import { AddressModule } from '@address/address.module';
 import { OrderModule } from '@order/order.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 
+/**
+ * Monólito restante no snapshot-1 da trilha de Subdomínio.
+ *
+ * Saíram os subdomínios genéricos: Identidade (auth, token, user, address) e
+ * Comunicação (email). Permanecem o suporte (product, search, storages), o
+ * núcleo (cart, shipping, order, inventory, stripe) e o health.
+ */
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -45,13 +47,8 @@ import { ThrottlerModule } from '@nestjs/throttler';
       },
     ]),
     HealthModule,
-    UserModule,
-    AddressModule,
-    AuthModule,
-    TokenModule,
     ProductModule,
     CartModule,
-    EmailModule,
     StripeModule,
     OrderModule,
   ],

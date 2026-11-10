@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ClientSession } from 'mongoose';
-import { EmailService } from '@email/services/email.service';
+import { ComunicacaoClient } from '@order/services/comunicacao.client';
 import { InventoryService } from '@inventory/services/inventory.service';
 import { CreateOrderDto } from '@order/dto/create-order.dto';
 import { OrderStatus } from '@order/enums/order-status.enum';
@@ -17,7 +17,7 @@ export class OrderService {
   public constructor(
     @InjectModel(Order.name) private readonly orderModel: Model<OrderDocument>,
     private readonly inventoryService: InventoryService,
-    private readonly emailService: EmailService,
+    private readonly comunicacaoClient: ComunicacaoClient,
     private readonly stripeService: StripePaymentService,
   ) {}
 
@@ -71,7 +71,7 @@ export class OrderService {
       await this.updateInventory(order.items, session);
       await session.commitTransaction();
       this.logger.log(`Order with ID ${orderId} processed successfully`);
-      await this.emailService.sendOrderConfirmationEmail({
+      await this.comunicacaoClient.sendOrderConfirmation({
         email: order.billing_details?.email,
         name: order.billing_details?.name,
         orderId: orderId,

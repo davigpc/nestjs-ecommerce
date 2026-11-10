@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { NotFoundException } from '@nestjs/common';
 import mongoose from 'mongoose';
-import { User } from '@user/schemas/user.schema';
 import { ItemTypes } from '@item/enums/item-types.enum';
 import { Item, ItemSchema } from '@item/schemas/item.schema';
 import {
@@ -16,9 +15,9 @@ export class Cart {
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
-    ref: User.name,
+    ref: 'User',
   })
-  customer: User;
+  customer: string;
 
   @Prop({ type: [ItemSchema], required: true })
   items: Item[];

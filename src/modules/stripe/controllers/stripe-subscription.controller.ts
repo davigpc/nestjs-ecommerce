@@ -12,12 +12,12 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { JwtAuthenticationGuard } from '@shared/guards/jwt.auth.guard';
+import { AccessTokenGuard } from '@shared/guards/access-token.guard';
 import { StripeSubscriptionService } from '@stripe/services/stripe-subscription.service';
 
 @ApiBearerAuth()
 @ApiTags('Subscriptions')
-@UseGuards(JwtAuthenticationGuard)
+@UseGuards(AccessTokenGuard)
 @Controller('subscriptions')
 export class StripeSubscriptionController {
   public constructor(

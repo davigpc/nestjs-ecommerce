@@ -4,7 +4,6 @@ import mongoConfig from '@config/mongo.config';
 import redisStore from 'cache-manager-redis-store';
 import { HealthModule } from '@health/health.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ProductModule } from '@product/product.module';
 import { CartModule } from '@cart/cart.module';
 import { StripeModule } from '@stripe/stripe.module';
 import { CacheModule } from '@nestjs/cache-manager';
@@ -12,11 +11,10 @@ import { OrderModule } from '@order/order.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 
 /**
- * Monólito restante no snapshot-1 da trilha de Subdomínio.
+ * Monólito restante no snapshot-2 da trilha de Subdomínio.
  *
- * Saíram os subdomínios genéricos: Identidade (auth, token, user, address) e
- * Comunicação (email). Permanecem o suporte (product, search, storages), o
- * núcleo (cart, shipping, order, inventory, stripe) e o health.
+ * Saíram os genéricos (Identidade e Comunicação) e o suporte (Catálogo). Ficou
+ * apenas o núcleo: carrinho, frete, pedido, estoque e pagamento.
  */
 @Module({
   imports: [
@@ -47,7 +45,6 @@ import { ThrottlerModule } from '@nestjs/throttler';
       },
     ]),
     HealthModule,
-    ProductModule,
     CartModule,
     StripeModule,
     OrderModule,

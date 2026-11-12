@@ -99,6 +99,9 @@
       ],
       "@health/*": [
         "src/modules/health/*"
+      ],
+      "@internal/*": [
+        "src/modules/internal/*"
       ]
     }
   }

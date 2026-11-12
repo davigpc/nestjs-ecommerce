@@ -173,6 +173,25 @@ async function main() {
     token,
   );
 
+  let orderId = null;
+  if (process.env.MONGO_URI) {
+    try {
+      await mongoose.connect(process.env.MONGO_URI, {
+        dbName: process.env.MONGO_DATABASE,
+      });
+      const created = await mongoose.connection.db
+        .collection('orders')
+        .findOne(
+          { customer: new mongoose.Types.ObjectId(userId) },
+          { sort: { _id: -1 } },
+        );
+      orderId = created ? String(created._id) : null;
+      await mongoose.disconnect();
+    } catch (error) {
+      console.warn(`order lookup failed: ${error.message}`);
+    }
+  }
+
   console.log(
     JSON.stringify({
       email: EMAIL,
@@ -180,6 +199,7 @@ async function main() {
       userId,
       productId: products[0]._id,
       productIds: products.map((product) => product._id),
+      orderId,
       orderClientSecret: order.client_secret,
     }),
   );

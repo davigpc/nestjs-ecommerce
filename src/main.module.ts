@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+﻿import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import mongoConfig from '@config/mongo.config';
 import redisStore from 'cache-manager-redis-store';
@@ -9,11 +9,9 @@ import { TokenModule } from '@token/token.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EmailModule } from '@email/email.module';
 import { ProductModule } from '@product/product.module';
-import { CartModule } from '@cart/cart.module';
-import { StripeModule } from '@stripe/stripe.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { AddressModule } from '@address/address.module';
-import { OrderModule } from '@order/order.module';
+import { InternalModule } from '@internal/internal.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
@@ -50,10 +48,11 @@ import { ThrottlerModule } from '@nestjs/throttler';
     AuthModule,
     TokenModule,
     ProductModule,
-    CartModule,
     EmailModule,
-    StripeModule,
-    OrderModule,
+    InternalModule,
   ],
 })
 export class MainModule {}
+
+
+

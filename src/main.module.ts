@@ -8,7 +8,6 @@ import { AuthModule } from '@auth/auth.module';
 import { TokenModule } from '@token/token.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EmailModule } from '@email/email.module';
-import { ProductModule } from '@product/product.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { AddressModule } from '@address/address.module';
 import { InternalModule } from '@internal/internal.module';
@@ -47,12 +46,12 @@ import { ThrottlerModule } from '@nestjs/throttler';
     AddressModule,
     AuthModule,
     TokenModule,
-    ProductModule,
     EmailModule,
     InternalModule,
   ],
 })
 export class MainModule {}
+
 
 
 
